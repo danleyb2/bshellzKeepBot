@@ -1,0 +1,10 @@
+{
+    "name":"KeepBshellzBot",
+    "version":"0.0.1",
+    "description":"Keeps my bshellz acount",
+    "dependencies":{
+        "node-schedule":"latest",
+        "irc":"latest"
+    }
+    
+}
