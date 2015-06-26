@@ -1,33 +1,45 @@
 var http=require("http");
 var irc=require("irc");
+var sch=require("node-schedule");
 
 
 var config={
-    channels:["#danleyb2","#danleyb4"],
+    channels:["#bshellz"],
     server:"irc.freenode.net",
-    botName:"ndieksBot",
+    name:"ndieksBot",
     realName:"Brian",
     userName:"danleyb2"
 };
 
-var myBot=new irc.Client(config.server,config.botName,{channels:config.channels
-    });
- myBot.addListener("join",function(channel,who){
-   myBot.say(channel, who+" ...welcome here"); 
+var time=new sch.RecurrenceRule();
+time.dayOfWeek=[1,3,5];
+time.hour=6;
+time.minute=0;
+
+sch.scheduleJob(time,function(){
+    var myBot=new irc.Client(config.server,config.name,
+    {
+        channels:config.channels,
+        userName:config.userName,
+        realName:config.realName
+    }
+    
+    );
+    
+     myBot.addListener("join",function(channel,who){
+     if (who==config.name) {
+         myBot.say(channel,"!keep danleyb2");
+         
+     }
+     
+});
+ 
+    
+});
 
 http.createServer(function(req,res){
     
-   
+
+}).listen(3000,function () {
+    
 });
-
-}).listen(3000,function(){
-    console.log("Server running");
-});
-
-
-
-
-
-
-
-//myBot.connect();
