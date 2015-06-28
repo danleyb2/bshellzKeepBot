@@ -16,7 +16,7 @@ var config={
 var server=http.createServer(function(req,res){
     if (req.method=='GET' && req.url=='/') {
 	res.writeHead(200,"{'Content-type':'text/plain'}");
-	fs.createReadStream("./assets/log.txt").pipe(res);
+	fs.createReadStream("assets/log.txt").pipe(res);
 	}
    });
 var time=new sch.RecurrenceRule();
