@@ -9,6 +9,10 @@
         "node-schedule":"latest",
         "irc":"latest",
         "fs":"latest"
-    }
+    },
+    "engines": {
+    "node": "0.12.x",
+    "npm": "2.1.x"
+  }
     
 }
