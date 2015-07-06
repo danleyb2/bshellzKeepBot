@@ -45,14 +45,14 @@ var myBot=new irc.Client(config.server,config.name,
 });
 function insertDate(){
     var d = new Date(),
-        return= [ (d.getMonth()+1),
+        dformat = [ (d.getMonth()+1),
                     d.getDate(),
                     d.getFullYear()].join('/')+
                     '  ' +
                   [ d.getHours(),
                     d.getMinutes(),
                     d.getSeconds()].join(':');
-
+          return dformat;
 }
 function logEvent(fileto,str){
     fs.open(fileto,'a');
