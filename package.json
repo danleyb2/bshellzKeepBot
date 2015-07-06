@@ -2,17 +2,17 @@
     "name":"KeepBshellzBot",
     "version":"0.0.1",
     "description":"Keeps my bshellz account active",
+  "author":"Brian",
     "scripts": {
     "start": "node app.js"
   },
     "dependencies":{
         "node-schedule":"latest",
-        "irc":"latest",
-        "fs":"latest"
+        "irc":"latest"
     },
     "engines": {
     "node": "0.12.x",
-    "npm": "2.1.x"
+    "npm": "2.10.x"
   }
     
 }
