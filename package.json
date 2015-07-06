@@ -4,11 +4,12 @@
     "description":"Keeps my bshellz account active",
   "author":"Brian",
     "scripts": {
-    "start": "node app.js"
+    "start": "node ./bin/www"
   },
     "dependencies":{
         "node-schedule":"latest",
-        "irc":"latest"
+        "irc":"latest",
+      "express": "~4.12.4"
     },
     "engines": {
     "node": "0.12.x",

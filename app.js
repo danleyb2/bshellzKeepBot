@@ -1,9 +1,12 @@
-var http=require("http");
+
 var irc=require("irc");
 var sch=require("node-schedule");
 var fs=require("fs");
+var express=require('express');
 
-var logfile="assets/log.txt";
+var app=express();
+
+var logfile="./assets/log.txt";
 
 var config={
     channels:["#bshellz"],
@@ -13,12 +16,11 @@ var config={
     userName:"danleyb2"
 };
 
-var server=http.createServer(function(req,res){
-    if (req.method=='GET' && req.url=='/') {
+app.use('/',function(req,res){
 	res.writeHead(200,"{'Content-type':'text/plain'}");
-	fs.createReadStream("assets/log.txt").pipe(res);
-	}
+	fs.createReadStream(logfile).pipe(res);
    });
+
 var time=new sch.RecurrenceRule();
 time.dayOfWeek=[1,3,5];
 time.hour=6;
@@ -43,21 +45,18 @@ var myBot=new irc.Client(config.server,config.name,
 });
 function insertDate(){
     var d = new Date(),
-        dformat = [ (d.getMonth()+1),
+        return= [ (d.getMonth()+1),
                     d.getDate(),
                     d.getFullYear()].join('/')+
                     '  ' +
                   [ d.getHours(),
                     d.getMinutes(),
                     d.getSeconds()].join(':');
-          return dformat;
+
 }
 function logEvent(fileto,str){
     fs.open(fileto,'a');
     fs.appendFile(fileto,insertDate()+" : "+str+"\n");
-   
-}
 
-server.listen(3000,function () {
-    logEvent(logfile,"Server running");
-});
+}
+module.exports=app;
