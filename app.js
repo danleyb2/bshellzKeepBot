@@ -9,7 +9,7 @@ var logfile="./assets/log.txt";
 var msg="!keep danleyb2";
 
 var config={
-    channel:"#danleyChnl",
+    channel:"#bshellz",
     server:"irc.freenode.net",
     name:"ndieksBot",
     realName:"Brian",
@@ -22,32 +22,29 @@ app.use('/',function(req,res){
    });
 
 var time=new sch.RecurrenceRule();
-/*time.dayOfWeek=[1,3,5];
+time.dayOfWeek=[1,2,3,4,5];
 time.hour=6;
-time.minute=0;*/
+time.minute=0;
 time.second=0;
 
 
 var myBot=new irc.Client(config.server,config.name,
     {
         autoConnect: false,
-        //channels:config.channels,
         userName:config.userName,
         realName:config.realName
     }
     );
 
-//sch.scheduleJob(time,function(){
+sch.scheduleJob(time,function(){
     myBot.connect(5,function(data){
 
-        console.log("Connected");
+
         myBot.join(config.channel,function(data){
 
             logEvent(logfile,"Bot ("+data+") joined "+config.channel);
-
-            myBot.say(config.channel,'Hello guys..');
+            myBot.say(config.channel,msg);
             myBot.disconnect(function(data){
-
                 logEvent(logfile, "Bot Disconnected from " + config.channel);
 
             })
@@ -56,7 +53,7 @@ var myBot=new irc.Client(config.server,config.name,
         });
 
     });
-//});
+});
 
 
 function insertDate(){
