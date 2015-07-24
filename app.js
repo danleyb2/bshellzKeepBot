@@ -1,4 +1,3 @@
-
 var irc=require("irc");
 var sch=require("node-schedule");
 var fs=require("fs");
@@ -7,9 +6,10 @@ var express=require('express');
 var app=express();
 
 var logfile="./assets/log.txt";
+var msg="!keep danleyb2";
 
 var config={
-    channels:["#danleyChannel"],
+    channel:"#danleyChnl",
     server:"irc.freenode.net",
     name:"ndieksBot",
     realName:"Brian",
@@ -27,24 +27,38 @@ time.hour=6;
 time.minute=0;*/
 time.second=0;
 
-sch.scheduleJob(time,function(){
+
 var myBot=new irc.Client(config.server,config.name,
     {
-        channels:config.channels,
+        autoConnect: false,
+        //channels:config.channels,
         userName:config.userName,
         realName:config.realName
     }
     );
-   myBot.addListener("join",function(channel,who){
-     if (who==config.name) {
-         logEvent(logfile,"Bot joinned "+channel);
-         var msg="!keep danleyb2";
-         myBot.say(channel,msg);
-         logEvent(logfile,"Bot said:- "+msg);
-       // myBot.part("#bshellz");
-     }
+
+//sch.scheduleJob(time,function(){
+    myBot.connect(5,function(data){
+
+        console.log("Connected");
+        myBot.join(config.channel,function(data){
+
+            logEvent(logfile,"Bot ("+data+") joined "+config.channel);
+
+            myBot.say(config.channel,'Hello guys..');
+            myBot.disconnect(function(data){
+
+                logEvent(logfile, "Bot Disconnected from " + config.channel);
+
+            })
+
+
+        });
+
     });
-});
+//});
+
+
 function insertDate(){
     var d = new Date(),
         dformat = [ (d.getMonth()+1),

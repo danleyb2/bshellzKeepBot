@@ -1,3 +1,7 @@
 BOT ACTIONS
 7/24/2015  11:35:18 : Bot joinned #danleychannel
 7/24/2015  11:35:18 : Bot said:- !keep danleyb2
+7/24/2015  15:24:16 : Bot joined #danleyChnl
+7/24/2015  15:24:17 : Bot Disconnected from #danleyChnl
+7/24/2015  15:27:19 : Bot (ndieksBot) joined #danleyChnl
+7/24/2015  15:27:19 : Bot Disconnected from #danleyChnl
