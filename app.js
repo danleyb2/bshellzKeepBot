@@ -9,7 +9,7 @@ var app=express();
 var logfile="./assets/log.txt";
 
 var config={
-    channels:["#bshellz"],
+    channels:["#danleyChannel"],
     server:"irc.freenode.net",
     name:"ndieksBot",
     realName:"Brian",
@@ -22,9 +22,11 @@ app.use('/',function(req,res){
    });
 
 var time=new sch.RecurrenceRule();
-time.dayOfWeek=[1,3,5];
+/*time.dayOfWeek=[1,3,5];
 time.hour=6;
-time.minute=0;
+time.minute=0;*/
+time.second=0;
+
 sch.scheduleJob(time,function(){
 var myBot=new irc.Client(config.server,config.name,
     {
