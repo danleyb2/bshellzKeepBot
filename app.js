@@ -9,42 +9,49 @@ var logfile="./assets/log.txt";
 var msg="!keep danleyb2";
 
 var config={
-    channel:"#bshellz",
+    channel:"#danleyChnl",
     server:"irc.freenode.net",
     name:"ndieksBot",
     realName:"Brian",
     userName:"danleyb2"
 };
 
-app.use('/',function(req,res){
+app.get('/',function(req,res,next){
+    console.log(req.url);
+
 	res.writeHead(200,"{'Content-type':'text/plain'}");
 	fs.createReadStream(logfile).pipe(res);
-   });
+    next();
 
-var time=new sch.RecurrenceRule();
-time.dayOfWeek=[1,2,3,4,5];
-time.hour=6;
-time.minute=0;
-time.second=0;
+   });
+app.use('/bot',function(req,res){
+    console.log(req.url);
+    bot();
+    res.end();
+});
+
 
 
 var myBot=new irc.Client(config.server,config.name,
     {
         autoConnect: false,
+        //channels:config.channels,
         userName:config.userName,
         realName:config.realName
     }
     );
 
-sch.scheduleJob(time,function(){
+function bot(){
     myBot.connect(5,function(data){
 
-
+        console.log("Connected");
         myBot.join(config.channel,function(data){
 
             logEvent(logfile,"Bot ("+data+") joined "+config.channel);
-            myBot.say(config.channel,msg);
+
+            myBot.say(config.channel,'Hello guys..');
             myBot.disconnect(function(data){
+
                 logEvent(logfile, "Bot Disconnected from " + config.channel);
 
             })
@@ -53,7 +60,9 @@ sch.scheduleJob(time,function(){
         });
 
     });
-});
+}
+
+
 
 
 function insertDate(){
