@@ -1,5 +1,4 @@
 var irc=require("irc");
-var sch=require("node-schedule");
 var fs=require("fs");
 var express=require('express');
 
@@ -9,7 +8,7 @@ var logfile="./assets/log.txt";
 var msg="!keep danleyb2";
 
 var config={
-    channel:"#danleyChnl",
+    channel:"#bshellz",
     server:"irc.freenode.net",
     name:"ndieksBot",
     realName:"Brian",
@@ -49,10 +48,11 @@ function bot(){
 
             logEvent(logfile,"Bot ("+data+") joined "+config.channel);
 
-            myBot.say(config.channel,'Hello guys..');
+            myBot.say(config.channel,msg);
             myBot.disconnect(function(data){
 
                 logEvent(logfile, "Bot Disconnected from " + config.channel);
+                logEvent(logfile,'________________________________________________________________________________________________');
 
             })
 
