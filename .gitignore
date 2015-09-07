@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+assets/log.txt
 .idea
 # Runtime data
 pids

@@ -7,8 +7,8 @@
     "start": "node ./bin/www"
   },
     "dependencies":{
-        "node-schedule":"latest",
-        "irc":"latest",
+      "mongodb":"~2.0",
+      "irc":"latest",
       "express": "~4.12.4"
     },
     "engines": {
