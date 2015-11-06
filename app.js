@@ -3,8 +3,12 @@ var fs=require("fs");
 var express=require('express');
 var mongo=require('mongodb').MongoClient;
 var url='mongodb://brian:brian123@ds033143.mongolab.com:33143/nodetest2';
+    //url='mongodb://localhost:27017/botdb';
 var database=null;
 var app=express();
+app.set('views',__dirname+'/views');
+app.set('view engine','jade');
+app.use(express.static('public'));
 
 var logfile="./assets/log.txt";
 var msg="!keep danleyb2";
@@ -20,7 +24,6 @@ var config={
 mongo.connect(url,function(err,db){
     if(err){
         console.log('Could not connect to db');
-
     }else{
         console.log('Connected to db');
         database=db;
@@ -30,40 +33,28 @@ mongo.connect(url,function(err,db){
 
 app.get('/',function(req,res,next){
     console.log(req.url);
-
-    database.collection('keepShell',function(err,collection){
-        if(err){
-
-        }else{
-            //res=collection.find();
-            var results=collection.find().toArray(function(e,result){return result});
-
-            console.log(results);
-            //res.writeHead(200, {"Content-Type": "application/json"});
-            //res.end(JSON.stringify(results));
-
-            res.writeHead(200,"{'Content-type':'text/plain'}");
-            fs.createReadStream(logfile).pipe(res);
-            next();
+    context={};
 
 
 
+    var collection=database.collection('keepShell');
+    if(!collection){
+        console.log('an error occured when accessing collection');
+    }else{
+        //res=collection.find();
+        collection.find({},{}).sort( { _id: -1 }).limit(10).toArray(function(e,result){
 
-        }
+            res.render('index',{'data':result,'title':'danleyb2'});
 
-    });
+        });
 
+    }
 
-
-	//res.writeHead(200,"{'Content-type':'text/plain'}");
-	//fs.createReadStream(logfile).pipe(res);
-    next();
 
    });
 app.use('/bot',function(req,res){
-    console.log(req.url);
     bot();
-    res.end();
+    res.redirect('/');
 });
 
 
@@ -104,9 +95,6 @@ function bot(){
                             "event":"disconnect",
                             "message":"Bot disconnected from " + config.channel
                         });
-
-
-
                     });
                 }
 
