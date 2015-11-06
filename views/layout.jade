@@ -1,0 +1,21 @@
+doctype
+-var getTm = function(i){
+-    var f=i.getTimestamp();
+-   b=f.toLocaleTimeString();
+-   a=f.toDateString();
+-   return a+' '+b;
+- }
+html
+    head
+        title #{title} - Keep Bot
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body
+        .container
+            .header-content
+                block content
+            .main-content
+                block bot-action
+        footer
+            p
+                span(style='color:blue;') Nyaundi Brian. 2015
+                | Running on node with Express, using Jade templating

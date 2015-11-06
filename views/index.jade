@@ -1,0 +1,16 @@
+extend layout
+block content
+    h1 Bot Actions.
+        a(style='float:right;text-decoration:none;border:1px solid;padding 2px;' href='/bot') Keep Bot
+block bot-action
+    each val in data
+        .item
+            p  #{getTm(val._id)}
+            case val.event
+                when 'join'
+                    p   #{val.event} : #{val.message}
+                when 'message'
+                    p   To : #{val.to}
+                    p   #{val.event} : #{val.content}
+                when 'disconnect'
+                    p #{val.event} : #{val.message}
