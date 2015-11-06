@@ -8,6 +8,7 @@
   },
     "dependencies":{
       "mongodb":"~2.0",
+      "jade": "*",
       "irc":"latest",
       "express": "~4.12.4"
     },
